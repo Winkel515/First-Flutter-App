@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './question.dart';
+import './result.dart';
 import './quiz.dart';
 
 void main() => runApp(MyApp());
@@ -50,12 +50,14 @@ class _MyAppState extends State<MyApp> {
       ]
     },
   ];
-  var score = 0;
+  var _totalScore = 0;
   var _qIndex = 0;
-  void _answerQuestion() {
+
+  void _answerQuestion(int score) {
     if (_qIndex < _questions.length - 1) {
       setState(() {
         _qIndex++;
+        _totalScore += score;
       });
     }
   }
@@ -64,19 +66,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('My New App'),
-        ),
-        body: _qIndex < _questions.length - 1
-            ? Quiz(
-                question: _questions[_qIndex]['questionText'],
-                answers: _questions[_qIndex]['answers'],
-                answerQuestion: _answerQuestion,
-              )
-            : Center(
-                child: Question('You\'ve completed the Quiz'),
-              ),
-      ),
+          appBar: AppBar(
+            title: Text('My New App'),
+          ),
+          body: _qIndex < _questions.length - 1
+              ? Quiz(
+                  question: _questions[_qIndex]['questionText'],
+                  answers: _questions[_qIndex]['answers'],
+                  answerQuestion: _answerQuestion,
+                )
+              : Result(_totalScore)),
     );
   }
 }

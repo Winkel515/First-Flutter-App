@@ -22,7 +22,7 @@ class Quiz extends StatelessWidget {
 
         // ... Operator takes things from a List and puts it within its parent List
         ...(answers as List<Map>).map((answer) {
-          return Answer(answer['text'], answerQuestion);
+          return Answer(answer['text'], () => answerQuestion(answer['score']));
         }).toList()
       ],
     );
