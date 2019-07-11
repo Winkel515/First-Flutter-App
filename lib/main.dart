@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
   var _qIndex = 0;
 
   void _answerQuestion(int score) {
-    if (_qIndex < _questions.length - 1) {
+    if (_qIndex < _questions.length) {
       setState(() {
         _qIndex++;
         _totalScore += score;
@@ -62,20 +62,28 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void restartQuiz() {
+    setState(() {
+      _qIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('My New App'),
-          ),
-          body: _qIndex < _questions.length - 1
-              ? Quiz(
-                  question: _questions[_qIndex]['questionText'],
-                  answers: _questions[_qIndex]['answers'],
-                  answerQuestion: _answerQuestion,
-                )
-              : Result(_totalScore)),
+        appBar: AppBar(
+          title: Text('My New App'),
+        ),
+        body: _qIndex < _questions.length
+            ? Quiz(
+                question: _questions[_qIndex]['questionText'],
+                answers: _questions[_qIndex]['answers'],
+                answerQuestion: _answerQuestion,
+              )
+            : Result(_totalScore, restartQuiz),
+      ),
     );
   }
 }
