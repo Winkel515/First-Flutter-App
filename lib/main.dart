@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './question.dart';
-import './answer.dart';
+import './quiz.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,55 +12,70 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _questions = const [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Green', 'score': 2},
+        {'text': 'Blue', 'score': 0},
+        {'text': 'Other', 'score': 7}
+      ]
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answers': [
+        {'text': 'Rabbit', 'score': 5},
+        {'text': 'Cat', 'score': 2},
+        {'text': 'Dog', 'score': 0},
+        {'text': 'Other', 'score': 7}
+      ]
+    },
+    {
+      'questionText': 'What\'s your favorite brand?',
+      'answers': [
+        {'text': 'Samsung', 'score': 0},
+        {'text': 'Apple', 'score': 2},
+        {'text': 'Huawei', 'score': 4},
+        {'text': 'Other', 'score': 6}
+      ]
+    },
+    {
+      'questionText': 'Who\'s the most handsome?',
+      'answers': [
+        {'text': 'Winkel', 'score': 0},
+        {'text': 'Winkel', 'score': 0},
+        {'text': 'Winkel', 'score': 0},
+        {'text': 'Winkel', 'score': 0},
+      ]
+    },
+  ];
+  var score = 0;
   var _qIndex = 0;
   void _answerQuestion() {
-    if (_qIndex < 3) {
+    if (_qIndex < _questions.length - 1) {
       setState(() {
         _qIndex++;
-      });
-    } else {
-      setState(() {
-        _qIndex = 0;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    const questions = [
-      {
-        'questionText': 'What\'s your favorite color?',
-        'answers': ['Red', 'Green', 'Blue', 'Other']
-      },
-      {
-        'questionText': 'What\'s your favorite animal?',
-        'answers': ['Rabbit', 'Snake', 'Elephant', 'Other']
-      },
-      {
-        'questionText': 'What\'s your favorite brand?',
-        'answers': ['Samsung', 'Apple', 'Huawei', 'Other']
-      },
-      {
-        'questionText': 'Who\'s the most handsome?',
-        'answers': ['Winkel', 'Winkel', 'Winkel', 'Winkel']
-      },
-    ];
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('My New App'),
         ),
-        body: Column(
-          children: <Widget>[
-            Question(questions[_qIndex]['questionText']),
-
-            // ... Operator takes things from a List and puts it within its parent List
-            ...(questions[_qIndex]['answers'] as List<String>).map((answer) {
-              return Answer(answer, _answerQuestion);
-            }).toList()
-          ],
-        ),
+        body: _qIndex < _questions.length - 1
+            ? Quiz(
+                question: _questions[_qIndex]['questionText'],
+                answers: _questions[_qIndex]['answers'],
+                answerQuestion: _answerQuestion,
+              )
+            : Center(
+                child: Question('You\'ve completed the Quiz'),
+              ),
       ),
     );
   }
