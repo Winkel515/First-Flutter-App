@@ -12,26 +12,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var questions = [
-    {
-      'questionText': 'What\'s your favorite color?',
-      'answers': ['Red', 'Green', 'Blue', 'Other']
-    },
-    {
-      'questionText': 'What\'s your favorite animal?',
-      'answers': ['Rabbit', 'Snake', 'Elephant', 'Other']
-    },
-    {
-      'questionText': 'What\'s your favorite brand?',
-      'answers': ['Samsung', 'Apple', 'Huawei', 'Other']
-    },
-    {
-      'questionText': 'Who\'s the most handsome person in the world?',
-      'answers': ['Winkel', 'Winkel', 'Winkel', 'Winkel']
-    },
-  ];
   var _qIndex = 0;
-
   void _answerQuestion() {
     if (_qIndex < 3) {
       setState(() {
@@ -46,6 +27,25 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    const questions = [
+      {
+        'questionText': 'What\'s your favorite color?',
+        'answers': ['Red', 'Green', 'Blue', 'Other']
+      },
+      {
+        'questionText': 'What\'s your favorite animal?',
+        'answers': ['Rabbit', 'Snake', 'Elephant', 'Other']
+      },
+      {
+        'questionText': 'What\'s your favorite brand?',
+        'answers': ['Samsung', 'Apple', 'Huawei', 'Other']
+      },
+      {
+        'questionText': 'Who\'s the most handsome?',
+        'answers': ['Winkel', 'Winkel', 'Winkel', 'Winkel']
+      },
+    ];
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
